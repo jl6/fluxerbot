@@ -26,12 +26,16 @@ export default {
         const createdDateStr = created ? created.toUTCString() : 'Unknown';
         const joinedDateStr = joined ? joined.toUTCString() : 'N/A';
 
-        const txt = [
-            `User: ${target.username} (${target.id})`,
-            `Created: ${createdDateStr} (${timeAgo(created)})`,
-            `Joined: ${joinedDateStr} (${joined ? timeAgo(joined) : 'N/A'})`
-        ].join('\n');
+        const embed = {
+            title: `User Info: ${target.username}`,
+            fields: [
+                { name: 'User ID', value: target.id, inline: true },
+                { name: 'Created', value: `${createdDateStr}\n(${timeAgo(created)})`, inline: false },
+                { name: 'Joined', value: `${joinedDateStr}\n(${joined ? timeAgo(joined) : 'N/A'})`, inline: false }
+            ],
+            color: 0x5865F2
+        };
 
-        await msg.reply(txt);
+        await msg.reply({ embeds: [embed] });
     }
 };
