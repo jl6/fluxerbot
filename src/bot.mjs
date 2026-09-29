@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import { Client, Events, parsePrefixCommand } from '@fluxerjs/core';
 import readyHandler from './client/ready.mjs';
+import { setupLoggers } from './handlers/logger.mjs';
 
 const client = new Client();
 const PREFIX = '_';
@@ -8,6 +9,7 @@ const PREFIX = '_';
 client.commands = new Map();
 
 readyHandler(client);
+setupLoggers(client);
 
 client.on(Events.MessageCreate, async (msg) => {
     if (msg.author.bot || !msg.content) return;
